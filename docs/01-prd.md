@@ -17,7 +17,7 @@ with cover images and personal notes.
 
 ## 3. Users
 - Reader: registered user who manages own library.
-- Visitor: not logged in. Can only see login and register pages.
+- Visitor: not logged in. Can see the landing page, login page, and register page only.
 
 ## 4. Functional Requirements
 
@@ -26,7 +26,7 @@ with cover images and personal notes.
 - FR-2: User can log in and log out.
 - FR-3: Passwords are stored hashed, never plain.
 - FR-4: Session uses JWT stored in httpOnly cookie.
-- FR-5: Library pages are blocked for visitors (redirect to login).
+- FR-5: Library pages are blocked for visitors (redirect to landing page).
 
 ### Books
 - FR-6: User can add a book: title, author, description, status.
@@ -55,6 +55,12 @@ with cover images and personal notes.
 ### Feedback
 - FR-20: Form input is validated, clear error shown on bad input.
 - FR-21: Success and error messages shown after actions (flash).
+
+### Landing page
+- FR-24: Landing page at `/` explains what BookShelf is and its main features.
+- FR-25: Landing page has clear links to Register and Login.
+- FR-26: A logged-in user who opens `/` is sent to their library at `/books`.
+- FR-27: After logout, user is sent to the landing page.
 
 ## 5. Non-Functional Requirements
 - NFR-1: Works on desktop and phone browser (responsive).
