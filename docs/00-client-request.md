@@ -18,7 +18,7 @@ A website where I can keep my personal reading library.
 - I want to edit or delete a book if I made a mistake.
 - I want to search my library quickly when it gets big.
 - I want to upload a cover picture for each book.
-- I want to write a notes or rating for a book I finished.
+- I want to write personal notes on a book (thoughts, quotes, lessons), as many notes as I want per book.
 
 ## Who will use it
 Mainly me. Maybe friends later, each with their own library.

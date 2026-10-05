@@ -42,9 +42,11 @@ with cover images and personal notes.
 - FR-14: Only image files allowed, with a size limit.
 
 ### Notes
-- FR-15: User can add personal notes to a book (thoughts, quotes, key takeaways).
-- FR-16: User can edit and delete own notes.
-- FR-17: Deleting a book also deletes its notes.
+- FR-15: User can add multiple notes to a book. Each note has text and an optional page number.
+- FR-16: Each note shows the date it was created.
+- FR-17: User can edit and delete own notes.
+- FR-18: User cannot see or change notes of another user.
+- FR-19: Deleting a book also deletes all its notes.
 
 ### Search and filter
 - FR-18: User can search own books by title or author or genre.
