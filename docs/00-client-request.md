@@ -11,7 +11,9 @@ what I'm reading, and what I want to read next.
 ## What I want
 A website where I can keep my personal reading library.
 
-- I want to create an account and log in, so my library is private.
+- I want to create an account with my email and confirm it with a code sent to me, so my library is private.
+- I want to log in with email and password, or with my Google account.
+- I want a "Remember me" option, so I stay logged in on my own device.
 - I want to add a book with title, author, and a short description.
 - I want to mark each book as: want to read, reading, or finished.
 - I want to see all my books in one page and tell the status at a glance.

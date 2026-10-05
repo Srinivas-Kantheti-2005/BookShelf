@@ -67,6 +67,7 @@ with cover images and personal notes.
 - NFR-2: Page load feels fast, search responds quickly.
 - NFR-3: Secrets (DB url, JWT secret, API keys) only in `.env`.
 - NFR-4: Clean card-catalog library look.
+- NFR-5: Login, OTP verify, and OTP resend are rate limited to block brute force.
 
 ## 6. Out of Scope (v1)
 - AI chat or recommendations (later version).

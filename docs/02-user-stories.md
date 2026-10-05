@@ -11,19 +11,21 @@ Status key: [ ] not done, [x] done.
 
 ### US-1: Register
 As a visitor, I want to create an account, so that I get my own private library.
-**Covers:** FR-1, FR-3
+**Covers:** FR-1, FR-3, FR-29
 **Acceptance criteria**
 - [ ] Form asks username, email, password.
 - [ ] Duplicate username or email is rejected with clear error.
 - [ ] Password is stored hashed in DB.
-- [ ] After register, user is logged in and sent to `/books`.
+- [ ] After submit, a 6 digit code is emailed and user is sent to the verify page.
+- [ ] Account is unverified until the code is entered.
 
 ### US-2: Login
 As a user, I want to log in, so that I can reach my library.
-**Covers:** FR-2, FR-4
+**Covers:** FR-2, FR-4, FR-30
 **Acceptance criteria**
 - [ ] Correct email and password logs in.
 - [ ] Wrong credentials show one generic error (do not say which was wrong).
+- [ ] Unverified user cannot log in and is sent to the verify page.
 - [ ] JWT is set in httpOnly cookie.
 - [ ] After login, user is sent to `/books`.
 
@@ -41,6 +43,51 @@ As a visitor, I should not see library pages, so that data stays private.
 **Acceptance criteria**
 - [ ] Visiting any `/books` URL without login redirects to the landing page `/`.
 - [ ] Expired or tampered token is treated as not logged in.
+
+### US-21: Verify email with OTP
+As a new user, I want to confirm my email with a code, so that my account is real.
+**Covers:** FR-29, FR-30, FR-31, FR-32
+**Acceptance criteria**
+- [ ] Verify page asks for the 6 digit code.
+- [ ] Correct code marks account verified, logs the user in, and sends to `/books`.
+- [ ] Wrong code shows a clear error.
+- [ ] Code expires after 10 minutes.
+- [ ] After 5 wrong attempts, user must request a new code.
+- [ ] Code is stored hashed in DB.
+
+### US-22: Resend OTP
+As a new user, I want a new code, so that I can verify if the first one is lost or expired.
+**Covers:** FR-33
+**Acceptance criteria**
+- [ ] Verify page has a Resend code button.
+- [ ] User must wait 60 seconds between requests.
+- [ ] A new code makes the old code invalid.
+
+### US-23: Remember me
+As a user, I want to stay logged in on my device, so that I don't log in every time.
+**Covers:** FR-28
+**Acceptance criteria**
+- [ ] Login form has a Remember me checkbox.
+- [ ] Unchecked: session ends when the browser closes.
+- [ ] Checked: session lasts 30 days.
+
+### US-24: Login with Google
+As a user, I want to continue with Google, so that I skip typing a password.
+**Covers:** FR-34, FR-35
+**Acceptance criteria**
+- [ ] Login and register pages have a Continue with Google button.
+- [ ] First time Google user gets an account, already verified, with no OTP.
+- [ ] Returning Google user is logged in.
+- [ ] After login, user is sent to `/books`.
+- [ ] If user cancels on Google, they return to login with a message.
+
+### US-25: Account linking
+As a user, I want one account for my email, so that I don't get duplicates.
+**Covers:** FR-36
+**Acceptance criteria**
+- [ ] Google email matching an existing account links to that account.
+- [ ] No duplicate account is created.
+- [ ] User can log in with either method afterwards.
 
 ---
 
