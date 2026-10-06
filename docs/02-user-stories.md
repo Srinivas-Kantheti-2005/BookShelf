@@ -95,34 +95,42 @@ As a user, I want one account for my email, so that I don't get duplicates.
 
 ### US-5: Add a book
 As a user, I want to add a book, so that it is in my library.
-**Covers:** FR-6, FR-7
+**Covers:** FR-6, FR-7, FR-37, FR-38, FR-40
 **Acceptance criteria**
-- [ ] Form has title, author, description, status.
+- [ ] Form has title, author, genre, description, total pages, current page, status.
+- [ ] Genre is chosen from a fixed list.
 - [ ] Status choices: want to read, reading, finished.
-- [ ] Title, author, status are required.
+- [ ] Title, author, genre, total pages, status are required.
+- [ ] Current page cannot be more than total pages.
+- [ ] Want to read sets current page to 0. Finished sets current page equal to total pages.
+- [ ] Start date is saved when status is reading. Finish date is saved when status is finished.
 - [ ] Saved book appears in my library.
 
 ### US-6: See all my books
 As a user, I want to see all my books on one page, so that I know my library at a glance.
-**Covers:** FR-8
+**Covers:** FR-8, FR-39
 **Acceptance criteria**
-- [ ] Each book shows as a card with title, author, cover, status.
+- [ ] Each book shows as a card with title, author, genre, cover, status.
+- [ ] Card shows a progress bar and percentage (current page out of total pages).
 - [ ] Status is visually clear (color or label).
 - [ ] Empty library shows a helpful empty message.
 
 ### US-7: View book details
 As a user, I want to open one book, so that I see all its info and notes.
-**Covers:** FR-9
+**Covers:** FR-9, FR-39
 **Acceptance criteria**
-- [ ] Detail page shows title, author, description, status, cover, notes.
+- [ ] Detail page shows title, author, genre, description, status, cover, pages, progress, notes.
+- [ ] Start date and finish date show when they exist.
 - [ ] Unknown book id shows a not-found page.
 
 ### US-8: Edit a book
-As a user, I want to edit a book, so that I can fix mistakes or change status.
-**Covers:** FR-10
+As a user, I want to edit a book, so that I can fix mistakes, update my current page, or change status.
+**Covers:** FR-10, FR-38, FR-40
 **Acceptance criteria**
 - [ ] Edit form is pre-filled with current values.
 - [ ] Saving updates the book.
+- [ ] Current page cannot be more than total pages.
+- [ ] Changing status to reading, finished, or want to read follows the page and date rules from US-5.
 - [ ] Invalid input is rejected with clear error.
 
 ### US-9: Delete a book
@@ -163,8 +171,9 @@ As a user, I want to add notes to a book, so that I keep my thoughts and quotes.
 **Covers:** FR-15, FR-16
 **Acceptance criteria**
 - [ ] Note has text and optional page number.
+- [ ] Page number cannot be more than the book's total pages.
 - [ ] A book can have many notes.
-- [ ] Each note shows its created date.
+- [ ] Each note shows its created date. Newest note shows first.
 - [ ] Empty text is rejected.
 
 ### US-13: Edit a note
@@ -199,12 +208,13 @@ As a user, I want to search by title or author or genre, so that I find a book f
 - [ ] Only my books are searched.
 - [ ] No match shows a "nothing found" message.
 
-### US-17: Filter by status
-As a user, I want to filter by status, so that I see only what I am reading or want to read.
-**Covers:** FR-21
+### US-17: Filter by status and genre
+As a user, I want to filter by status and genre, so that I see only what I want.
+**Covers:** FR-21, FR-41
 **Acceptance criteria**
-- [ ] Filter choices: all, want to read, reading, finished.
-- [ ] Filter works together with search.
+- [ ] Status filter choices: all, want to read, reading, finished.
+- [ ] Genre filter has all genres from the fixed list, plus all.
+- [ ] Status filter, genre filter, and search work together.
 
 ---
 

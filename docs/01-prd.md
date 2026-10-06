@@ -29,20 +29,24 @@ with cover images and personal notes.
 - FR-5: Library pages are blocked for visitors (redirect to landing page).
 
 ### Books
-- FR-6: User can add a book: title, author, description, status.
+- FR-6: User can add a book: title, author, genre, description, total pages, current page, status.
 - FR-7: Status is one of: want to read, reading, finished.
-- FR-8: User can see all own books in one page, status visible at a glance.
+- FR-8: User can see all own books in one page, with status and reading progress visible at a glance.
 - FR-9: User can view one book's details.
 - FR-10: User can edit own book.
 - FR-11: User can delete own book, with a confirmation first.
 - FR-12: User cannot see, edit, or delete another user's book.
+- FR-37: Genre is chosen from a fixed list (fiction, non-fiction, fantasy, sci-fi, mystery, thriller, romance, biography, history, self-help, science, technology, business, poetry, other).
+- FR-38: Current page cannot be more than total pages. Want to read means current page 0. Finished means current page equals total pages.
+- FR-39: Each book shows reading progress as a percentage, calculated from current page and total pages.
+- FR-40: Start date and finish date are recorded automatically when status changes to reading or finished.
 
 ### Cover image
 - FR-13: User can upload a cover image for a book.
 - FR-14: Only image files allowed, with a size limit.
 
 ### Notes
-- FR-15: User can add multiple notes to a book. Each note has text and an optional page number.
+- FR-15: User can add multiple notes to a book. Each note has text and an optional page number, which cannot be more than the book's total pages.
 - FR-16: Each note shows the date it was created.
 - FR-17: User can edit and delete own notes.
 - FR-18: User cannot see or change notes of another user.
@@ -51,6 +55,7 @@ with cover images and personal notes.
 ### Search and filter
 - FR-18: User can search own books by title or author or genre.
 - FR-19: User can filter books by status.
+- FR-41: User can filter books by genre.
 
 ### Feedback
 - FR-20: Form input is validated, clear error shown on bad input.
