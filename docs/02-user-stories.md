@@ -11,22 +11,26 @@ Status key: [ ] not done, [x] done.
 
 ### US-1: Register
 As a visitor, I want to create an account, so that I get my own private library.
-**Covers:** FR-1, FR-3, FR-29
+**Covers:** FR-1, FR-3, FR-29, FR-50
 **Acceptance criteria**
-- [ ] Form asks username, email, password.
+- [ ] Form asks username, email, password, confirm password.
+- [ ] Password must be at least 8 characters with a letter and a number.
+- [ ] Confirm password must match password, otherwise a clear error shows.
 - [ ] Duplicate username or email is rejected with clear error.
-- [ ] Password is stored hashed in DB.
+- [ ] Password is stored hashed in DB. Confirm password is never stored.
 - [ ] After submit, a 6 digit code is emailed and user is sent to the verify page.
 - [ ] Account is unverified until the code is entered.
 
 ### US-2: Login
 As a user, I want to log in, so that I can reach my library.
-**Covers:** FR-2, FR-4, FR-30
+**Covers:** FR-2, FR-4, FR-28, FR-30, FR-42
 **Acceptance criteria**
+- [ ] Login form has email, password, a Remember me checkbox, and a Forgot password link.
 - [ ] Correct email and password logs in.
 - [ ] Wrong credentials show one generic error (do not say which was wrong).
 - [ ] Unverified user cannot log in and is sent to the verify page.
 - [ ] JWT is set in httpOnly cookie.
+- [ ] Remember me unchecked: session ends when the browser closes. Checked: session lasts 30 days.
 - [ ] After login, user is sent to `/books`.
 
 ### US-3: Logout
@@ -89,6 +93,21 @@ As a user, I want one account for my email, so that I don't get duplicates.
 - [ ] No duplicate account is created.
 - [ ] User can log in with either method afterwards.
 
+### US-26: Forgot password
+As a user, I want to reset my password, so that I can get back into my account if I forget it.
+**Covers:** FR-42, FR-43, FR-44, FR-45, FR-46, FR-47, FR-50
+**Acceptance criteria**
+- [ ] Login page has a Forgot password link.
+- [ ] User enters email and always sees the same message: "If an account exists, we sent a code."
+- [ ] A 6 digit code is emailed only to accounts that have a password.
+- [ ] Google-only account gets an email telling them to use Google login.
+- [ ] Reset page asks for code, new password, and confirm password.
+- [ ] New password follows the same rule as register (FR-50) and must match confirm password.
+- [ ] Correct code with a valid matching password saves the new hashed password.
+- [ ] Code expires after 10 minutes and allows max 5 wrong attempts.
+- [ ] User can request a new code after 60 seconds.
+- [ ] After reset, user is sent to login with a success message.
+
 ---
 
 ## Epic 2: Books
@@ -108,11 +127,17 @@ As a user, I want to add a book, so that it is in my library.
 
 ### US-6: See all my books
 As a user, I want to see all my books on one page, so that I know my library at a glance.
-**Covers:** FR-8, FR-39
+**Covers:** FR-8, FR-39, FR-48, FR-49
 **Acceptance criteria**
 - [ ] Each book shows as a card with title, author, genre, cover, status.
 - [ ] Card shows a progress bar and percentage (current page out of total pages).
 - [ ] Status is visually clear (color or label).
+- [ ] Library shows 12 books per page, newest added first.
+- [ ] Pagination bar shows Previous, page numbers, and Next. It is hidden when there is only one page.
+- [ ] Previous is disabled on the first page. Next is disabled on the last page.
+- [ ] Page number is in the URL, and search and filters are kept when changing pages.
+- [ ] Applying a search or filter goes back to page 1.
+- [ ] Invalid page number shows page 1. Too-high page number shows the last page.
 - [ ] Empty library shows a helpful empty message.
 
 ### US-7: View book details
@@ -201,20 +226,28 @@ As a user, I should only see my own notes, so that my thoughts stay private.
 ## Epic 5: Search and Filter
 
 ### US-16: Search books
-As a user, I want to search by title or author or genre, so that I find a book fast.
-**Covers:** FR-20
+As a user, I want to search by title or author, so that I find a book fast.
+**Covers:** FR-20, FR-51, FR-52
 **Acceptance criteria**
 - [ ] Search matches title or author, not case sensitive.
 - [ ] Only my books are searched.
+- [ ] Results update while I type, after a short pause (about 400 ms), with no Apply button and no full page reload.
+- [ ] The search field keeps my text and focus while results update.
+- [ ] URL updates with the search text, so refresh, Back, and bookmarks work.
+- [ ] Changing the search goes back to page 1.
 - [ ] No match shows a "nothing found" message.
 
 ### US-17: Filter by status and genre
 As a user, I want to filter by status and genre, so that I see only what I want.
-**Covers:** FR-21, FR-41
+**Covers:** FR-21, FR-41, FR-51, FR-52
 **Acceptance criteria**
 - [ ] Status filter choices: all, want to read, reading, finished.
 - [ ] Genre filter has all genres from the fixed list, plus all.
+- [ ] The list updates as soon as I pick a value, with no Apply button and no full page reload.
 - [ ] Status filter, genre filter, and search work together.
+- [ ] URL updates with the chosen filters.
+- [ ] Changing a filter goes back to page 1.
+- [ ] Clear button resets search and filters and shows the full library.
 
 ---
 
@@ -222,11 +255,13 @@ As a user, I want to filter by status and genre, so that I see only what I want.
 
 ### US-18: Form validation
 As a user, I want clear errors on bad input, so that I know how to fix it.
-**Covers:** FR-22
+**Covers:** FR-22, FR-53
 **Acceptance criteria**
 - [ ] Validation runs on client (JS) and server (Joi).
 - [ ] Error message names the field and the problem.
 - [ ] Entered values are kept after an error.
+- [ ] An error under a field disappears as soon as I start typing in that field.
+- [ ] If the value is still invalid on submit, the error shows again.
 
 ### US-19: Action messages
 As a user, I want a message after each action, so that I know it worked.

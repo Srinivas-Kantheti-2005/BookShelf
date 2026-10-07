@@ -10,7 +10,7 @@
 - Auth column: **Public** = anyone. **Login** = valid JWT cookie and verified account, else redirect to `/`.
 - Every `:id` route also checks the record belongs to the logged-in user. Not yours means 404.
 - Cover upload forms use `multipart/form-data`.
-- Pending verify email is kept in a short-lived httpOnly cookie (15 minutes), not in the URL.
+- Pending verify and reset emails are kept in a short-lived httpOnly cookie (15 minutes), not in the URL.
 
 ## 2. Public and auth routes
 
@@ -24,6 +24,11 @@
 | POST | `/verify-email/resend` | Public | New OTP, 60 second wait | US-22 |
 | GET | `/login` | Public | Login form with Remember me | US-2, US-23 |
 | POST | `/login` | Public | Check credentials, set JWT cookie, redirect to `/books`. Unverified user goes to `/verify-email` | US-2, US-23 |
+| GET | `/forgot-password` | Public | Forgot password form | US-26 |
+| POST | `/forgot-password` | Public | Send reset code if the account exists, always show the same message, redirect to `/reset-password` | US-26 |
+| GET | `/reset-password` | Public | Reset form. No pending email cookie means redirect to `/forgot-password` | US-26 |
+| POST | `/reset-password` | Public | Check code, save new password, redirect to `/login` with success message | US-26 |
+| POST | `/reset-password/resend` | Public | New reset code, 60 second wait | US-26 |
 | POST | `/logout` | Login | Clear cookie, redirect to `/` | US-3 |
 | GET | `/auth/google` | Public | Start Google OAuth | US-24 |
 | GET | `/auth/google/callback` | Public | Find, link, or create user, set JWT, redirect to `/books`. Cancel returns to `/login` with message | US-24, US-25 |
@@ -32,7 +37,7 @@
 
 | Method | URL | Auth | What it does | Story |
 |---|---|---|---|---|
-| GET | `/books` | Login | My library. Query: `q` (search), `status`, `genre` | US-6, US-16, US-17 |
+| GET | `/books` | Login | My library, 12 per page, newest first. Query: `q`, `status`, `genre`, `page` | US-6, US-16, US-17 |
 | GET | `/books/new` | Login | Add book form | US-5 |
 | POST | `/books` | Login | Validate, upload cover, create book, redirect to `/books` | US-5, US-11 |
 | GET | `/books/:id` | Login | Book details with notes | US-7 |
@@ -56,25 +61,41 @@
 | `q` | text, matches title or author | `/books?q=atomic` |
 | `status` | `want-to-read`, `reading`, `finished` | `/books?status=reading` |
 | `genre` | any value from the genre list | `/books?genre=sci-fi` |
+| `page` | whole number, 1 or more | `/books?page=2` |
 
-All three can combine: `/books?q=atomic&status=reading&genre=self-help`.
+All can combine: `/books?q=atomic&status=reading&genre=self-help&page=2`. Changing `q`, `status`, or `genre` resets `page` to 1. Invalid `page` shows page 1. Too-high `page` shows the last page.
+
+### 5.1 Dynamic search and filter
+
+- No new URL. The same `GET /books` is used.
+- Browser JavaScript calls `GET /books?...` with the header `X-Requested-With: XMLHttpRequest`.
+- With that header the server returns only the results part (cards, count, pagination bar) instead of the full page.
+- Without the header the server returns the full page, so Enter, refresh, Back, and bookmarks work.
+- Same owner filter, same validation of `q`, `status`, `genre`, `page` in both cases.
 
 ## 6. Request inputs
 
 | Route | Body fields |
 |---|---|
-| POST `/register` | username, email, password |
+| POST `/register` | username, email, password, confirmPassword |
 | POST `/verify-email` | code |
 | POST `/login` | email, password, rememberMe |
+| POST `/forgot-password` | email |
+| POST `/reset-password` | code, password, confirmPassword |
 | POST, PUT `/books` | title, author, genre, description, totalPages, currentPage, status, cover (file) |
 | POST, PUT note | text, page |
 
 `owner`, `book`, and ids are never read from the body. Server sets them.
 
+`confirmPassword` is checked against `password` and then dropped. It is never saved.
+
 ## 7. Rate limits
 - POST `/login`: 10 per 15 minutes per IP.
 - POST `/verify-email`: 10 per 15 minutes per IP.
 - POST `/verify-email/resend`: 5 per 15 minutes per IP, plus the 60 second wait per user.
+- POST `/forgot-password`: 5 per 15 minutes per IP.
+- POST `/reset-password`: 10 per 15 minutes per IP.
+- POST `/reset-password/resend`: 5 per 15 minutes per IP, plus the 60 second wait per user.
 
 ## 8. Flash messages
 Success or error shown after each action (US-19): register, verify, login, logout, add, edit, delete for books and notes.

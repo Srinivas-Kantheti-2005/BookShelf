@@ -31,6 +31,7 @@ User 1 ──── * Book 1 ──── * Note
 | otpExpires | Date | optional, 10 minutes after sending |
 | otpAttempts | Number | default 0, max 5 |
 | otpLastSentAt | Date | optional, used for 60 second resend wait |
+| otpPurpose | String | optional, one of: `verify-email`, `reset-password` |
 | createdAt | Date | auto |
 | updatedAt | Date | auto |
 
@@ -103,11 +104,15 @@ Not stored: progress percent = `currentPage / totalPages * 100`. Calculated when
 - Google users are verified automatically and may have no password.
 - Google username is made from the Google name, lowercase, no spaces, plus 4 random digits, checked for uniqueness.
 - Account linking: if the Google email matches an existing user and Google reports the email as verified, set `googleId` on that user. Otherwise do not link.
+- Forgot password reuses the OTP fields. `otpPurpose` says what the code is for, and a code only works for its own purpose.
+- A new code replaces any older code, so only one code is active per user.
+- Reset saves a new bcrypt hash, clears all OTP fields, and sets `isVerified` to true.
+- Forgot password sends no code to accounts without a password (Google-only).
 
 ## 8. Indexes
 - User: unique index on `username`, unique index on `email`.
 - User: unique sparse index on `googleId`.
-- Book: index on `owner` (library list).
+- Book: index on `owner + createdAt` descending (library list, newest first, pagination).
 - Book: index on `owner + status` (filter by status).
 - Book: index on `owner + genre` (filter by genre).
 - Book: text index on `title` and `author` (search).
@@ -127,3 +132,5 @@ Not stored: progress percent = `currentPage / totalPages * 100`. Calculated when
 - JWT is stateless, so no session or token collection. "Remember me" only changes token and cookie lifetime.
 - OTP fields live inside User (one active code per user), no separate collection.
 - Reviews and ratings are not in v1. Personal notes only.
+- Forgot password reuses the OTP system, no separate token or collection.
+- Library uses pagination (skip and limit), not infinite scroll.
