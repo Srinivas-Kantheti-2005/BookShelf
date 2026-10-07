@@ -137,3 +137,47 @@ Every badge shows a text label, never color alone.
 - Focus ring: 2 px `primary-focus`, 2 px offset, on every clickable item.
 - Disabled controls use `bg-muted` background and `border` border. Disabled text has no contrast requirement, but keep it readable.
 - Text on colored backgrounds comes only from the allowed pairs in 1.3.
+
+## 2. Typography
+
+### 2.1 Fonts
+
+| Role | Font | Weights | Used for |
+|---|---|---|---|
+| Heading | Fraunces (serif) | 600 | Page titles, section headings, book titles |
+| Body | Work Sans (sans-serif) | 400, 500, 600 | Body text, buttons, forms, navbar, cards |
+| Label | IBM Plex Mono (monospace) | 500 | Small labels, status badges, page numbers, progress numbers |
+
+All three are free on Google Fonts.
+
+### 2.2 Load fonts
+
+Add to the layout `<head>` before the stylesheet:
+
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=IBM+Plex+Mono:wght@500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+```
+
+`display=swap` shows text in the fallback font first, so the page is never blank while fonts load.
+
+### 2.3 CSS variables
+
+```css
+:root {
+  --font-heading: "Fraunces", Georgia, serif;
+  --font-body: "Work Sans", system-ui, sans-serif;
+  --font-label: "IBM Plex Mono", ui-monospace, monospace;
+}
+```
+
+### 2.4 Rules
+
+- Headings use `--font-heading`, weight 600 only.
+- Body, buttons, inputs, navbar, and card text use `--font-body`.
+- `--font-label` is only for short uppercase labels, badges, and numbers. Never for sentences.
+- Body text is never below 14 px. Inputs are 16 px so phones do not zoom.
+- Long text (book description, notes) stays 60 to 75 characters per line.
+- Only the weights listed above are loaded. Do not add more.
+- Size scale, line heights, and text styles: next section.
