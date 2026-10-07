@@ -180,4 +180,106 @@ Add to the layout `<head>` before the stylesheet:
 - Body text is never below 14 px. Inputs are 16 px so phones do not zoom.
 - Long text (book description, notes) stays 60 to 75 characters per line.
 - Only the weights listed above are loaded. Do not add more.
-- Size scale, line heights, and text styles: next section.
+
+### 2.5 Type scale
+
+| Style (Figma name) | Font | Weight | Desktop size / line | Mobile size / line | Used for |
+|---|---|---|---|---|---|
+| `Heading/Display` | Fraunces | 600 | 40 / 48 | 32 / 40 | Landing page hero only |
+| `Heading/H1` | Fraunces | 600 | 32 / 40 | 28 / 36 | Page titles (My Library, Add a book) |
+| `Heading/H2` | Fraunces | 600 | 24 / 32 | 24 / 32 | Section headings (Notes, Description) |
+| `Heading/H3` | Fraunces | 600 | 20 / 28 | 20 / 28 | Book title on cards, modal title |
+| `Body/Regular` | Work Sans | 400 | 16 / 24 | 16 / 24 | Body text, inputs, descriptions, notes |
+| `Body/Medium` | Work Sans | 500 | 16 / 24 | 16 / 24 | Form labels, navbar links |
+| `Body/Small` | Work Sans | 400 | 14 / 20 | 14 / 20 | Author on cards, hints, error messages, footer |
+| `Button` | Work Sans | 600 | 16 / 20 | 16 / 20 | Button text |
+| `Label` | IBM Plex Mono | 500 | 12 / 16 | 12 / 16 | Status badges, page numbers, progress, pagination text |
+
+`Label` is uppercase with 4% letter spacing.
+
+Only Display and H1 change on mobile.
+
+### 2.6 CSS
+
+```css
+:root {
+  --text-display: 2.5rem;    /* 40 */
+  --text-h1: 2rem;           /* 32 */
+  --text-h2: 1.5rem;         /* 24 */
+  --text-h3: 1.25rem;        /* 20 */
+  --text-base: 1rem;         /* 16 */
+  --text-small: 0.875rem;    /* 14 */
+  --text-label: 0.75rem;     /* 12 */
+
+  --leading-display: 3rem;   /* 48 */
+  --leading-h1: 2.5rem;      /* 40 */
+  --leading-h2: 2rem;        /* 32 */
+  --leading-h3: 1.75rem;     /* 28 */
+  --leading-base: 1.5rem;    /* 24 */
+  --leading-small: 1.25rem;  /* 20 */
+  --leading-label: 1rem;     /* 16 */
+}
+
+@media (max-width: 600px) {
+  :root {
+    --text-display: 2rem;      /* 32 */
+    --leading-display: 2.5rem; /* 40 */
+    --text-h1: 1.75rem;        /* 28 */
+    --leading-h1: 2.25rem;     /* 36 */
+  }
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-base);
+  color: var(--text);
+  background: var(--bg);
+}
+
+h1, h2, h3, .display {
+  font-family: var(--font-heading);
+  font-weight: 600;
+}
+
+.display { font-size: var(--text-display); line-height: var(--leading-display); }
+h1 { font-size: var(--text-h1); line-height: var(--leading-h1); }
+h2 { font-size: var(--text-h2); line-height: var(--leading-h2); }
+h3 { font-size: var(--text-h3); line-height: var(--leading-h3); }
+
+.text-small { font-size: var(--text-small); line-height: var(--leading-small); }
+
+.label {
+  font-family: var(--font-label);
+  font-weight: 500;
+  font-size: var(--text-label);
+  line-height: var(--leading-label);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+```
+
+Sizes use `rem` so they follow the user's browser font size.
+
+### 2.7 Where each style is used
+
+| Screen part | Style |
+|---|---|
+| Landing hero | Display |
+| Page title | H1 |
+| "Notes (3)", "Description" | H2 |
+| Book title on card, modal title | H3 |
+| Description, notes, form text | Body/Regular |
+| Form labels, navbar links | Body/Medium |
+| Author, hints, form errors, footer | Body/Small |
+| Buttons | Button |
+| Status badges, "Page 2 of 5", progress "42%" | Label |
+| Flash message text | Body/Regular |
+
+### 2.8 Rules
+
+- Headings do not skip levels in the HTML (H1, then H2, then H3). Choose by meaning, not size.
+- One H1 per page.
+- Do not use bold or italics on Fraunces. Weight 600 only.
+- Text color comes from tokens only (`text`, `text-soft`, status dark colors).
+- Do not use `Label` for sentences.
