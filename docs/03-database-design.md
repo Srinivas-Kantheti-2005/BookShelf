@@ -5,7 +5,8 @@
 **Date:** 6 Oct 2026
 
 ## 1. Collections
-3 collections: User, Book, Note.
+3 models: User, Book, Note.
+1 collection managed by a library: `sessions` (connect-mongo). It is not a Mongoose model. It holds flash messages, Google OAuth `state`, and the pending email for verify and reset. Each record expires on its own (TTL). It never holds login state.
 
 ## 2. Relationships
 - One User has many Books.
@@ -129,7 +130,8 @@ Not stored: progress percent = `currentPage / totalPages * 100`. Calculated when
 - Genre is a fixed list, not free text, so filter works cleanly.
 - Cover stored as object (`url` + `filename`) so image can be removed from Cloudinary later.
 - Progress percent is calculated, not stored, so it never goes stale.
-- JWT is stateless, so no session or token collection. "Remember me" only changes token and cookie lifetime.
+- JWT is stateless for login, so there is no token collection. "Remember me" only changes token and cookie lifetime.
+- The `sessions` collection holds only temporary data (flash, OAuth state, pending email). It is separate from login.
 - OTP fields live inside User (one active code per user), no separate collection.
 - Reviews and ratings are not in v1. Personal notes only.
 - Forgot password reuses the OTP system, no separate token or collection.

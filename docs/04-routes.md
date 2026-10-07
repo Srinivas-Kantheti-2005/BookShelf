@@ -10,7 +10,7 @@
 - Auth column: **Public** = anyone. **Login** = valid JWT cookie and verified account, else redirect to `/`.
 - Every `:id` route also checks the record belongs to the logged-in user. Not yours means 404.
 - Cover upload forms use `multipart/form-data`.
-- Pending verify and reset emails are kept in a short-lived httpOnly cookie (15 minutes), not in the URL.
+- Pending verify and reset emails are kept in the server session (15 minute limit), not in the URL.
 
 ## 2. Public and auth routes
 
@@ -99,6 +99,7 @@ All can combine: `/books?q=atomic&status=reading&genre=self-help&page=2`. Changi
 
 ## 8. Flash messages
 Success or error shown after each action (US-19): register, verify, login, logout, add, edit, delete for books and notes.
+Flash messages are stored in the session and shown once, on the next page.
 
 ## 9. Error pages
 
