@@ -1,15 +1,23 @@
 # Design System: BookShelf v1
 
-**Source:** docs/07-design-brief.md, Figma file `BookShelf` (page: Design System)
+**Source:** docs/07-design-brief.md
+**Figma:** file `BookShelf`, page `Design System`
 **Date:** 7 Oct 2026
 
-## 1. Colors
+Token names in this file are also the CSS variable names (`primary` becomes `--primary`). Components use tokens only, never raw hex.
 
-Palette made with the 9 shade HSB arc method: 6 scales, 54 shades. Only the 28 tokens below are used in the app. Components and CSS use token names, never raw hex.
+## 1. Principles
 
-### 1.1 Tokens
+- Calm and bookish. Warm paper background, ink text, one brand color.
+- One main action per screen.
+- Status is never shown by color alone.
+- Everything is reachable by keyboard.
 
-**Primary (ink blue): buttons, links, focus**
+## 2. Colors
+
+Palette made with the 9 shade HSB arc method. 6 scales, 54 shades in Figma. Only the 28 tokens below are used.
+
+### 2.1 Primary (ink blue): buttons, links, focus
 
 | Token | Hex | Used for |
 |---|---|---|
@@ -18,34 +26,36 @@ Palette made with the 9 shade HSB arc method: 6 scales, 54 shades. Only the 28 t
 | `primary` | `#2D5F80` | Buttons, links, active nav, current page |
 | `primary-dark` | `#1A4866` | Button hover and pressed |
 
-**Secondary (wine): decoration only**
+### 2.2 Secondary (wine): decoration only
 
 | Token | Hex | Used for |
 |---|---|---|
 | `secondary-light` | `#FFEBF4` | Soft decorative background |
-| `secondary-focus` | `#A0607F` | Decorative icons, small highlights |
+| `secondary-focus` | `#A0607F` | Decorative icons, highlights |
 | `secondary` | `#802D55` | Logo accent, dividers, empty state art |
 | `secondary-dark` | `#661A3F` | Decorative text accents |
 
-**Neutral (warm gray): most of the interface**
+Never use secondary for buttons, links, or anything that could look like an error.
+
+### 2.3 Neutral (warm gray): most of the interface
 
 | Token | Hex | Used for |
 |---|---|---|
 | `bg` | `#F4F2EE` | Page background |
-| `bg-muted` | `#E8E5DF` | Hover and disabled backgrounds |
+| `bg-muted` | `#E8E5DF` | Hover and disabled backgrounds, progress track |
 | `border` | `#D5D1C9` | Card borders, dividers |
 | `border-strong` | `#8C8781` | Input borders, icons |
 | `text-soft` | `#6E6A64` | Hints, secondary text |
 | `text` | `#26241F` | Main text |
 | `surface` | `#FFFFFF` | Cards, inputs, modal |
-| `text-on-primary` | `#FFFFFF` | Text on primary buttons |
+| `text-on-primary` | `#FFFFFF` | Text on primary and danger buttons |
 
-**Status colors: light is the background, middle is the icon and border, dark is the text**
+### 2.4 Status: light is background, middle is icon and border, dark is text
 
 | Token | Hex | Used for |
 |---|---|---|
-| `success-light` | `#EBFFF1` | Success alert and Finished badge background |
-| `success` | `#358550` | Success icon, border |
+| `success-light` | `#EBFFF1` | Success alert, Finished badge background |
+| `success` | `#358550` | Success icon, border, 100% progress fill |
 | `success-dark` | `#1A6633` | Success text |
 | `warning-light` | `#FFF8EB` | Warning background |
 | `warning` | `#A8803B` | Warning icon, border |
@@ -53,73 +63,11 @@ Palette made with the 9 shade HSB arc method: 6 scales, 54 shades. Only the 28 t
 | `error-light` | `#FFECEB` | Error background |
 | `error` | `#A1453D` | Error icon, border, Delete button |
 | `error-dark` | `#66201A` | Error text, form errors |
-| `info-light` | `#EBFFFF` | Info alert and Reading badge background |
+| `info-light` | `#EBFFFF` | Info alert, Reading badge background |
 | `info` | `#3B9494` | Info icon, border |
 | `info-dark` | `#1A6666` | Info text |
 
-### 1.2 CSS variables
-
-```css
-:root {
-  /* primary */
-  --primary-light: #EBF7FF;
-  --primary-focus: #3B6E8F;
-  --primary: #2D5F80;
-  --primary-dark: #1A4866;
-
-  /* secondary (decoration only) */
-  --secondary-light: #FFEBF4;
-  --secondary-focus: #A0607F;
-  --secondary: #802D55;
-  --secondary-dark: #661A3F;
-
-  /* neutral */
-  --bg: #F4F2EE;
-  --bg-muted: #E8E5DF;
-  --border: #D5D1C9;
-  --border-strong: #8C8781;
-  --text-soft: #6E6A64;
-  --text: #26241F;
-  --surface: #FFFFFF;
-  --text-on-primary: #FFFFFF;
-
-  /* status */
-  --success-light: #EBFFF1;
-  --success: #358550;
-  --success-dark: #1A6633;
-  --warning-light: #FFF8EB;
-  --warning: #A8803B;
-  --warning-dark: #664A1A;
-  --error-light: #FFECEB;
-  --error: #A1453D;
-  --error-dark: #66201A;
-  --info-light: #EBFFFF;
-  --info: #3B9494;
-  --info-dark: #1A6666;
-}
-```
-
-### 1.3 Allowed text pairs and contrast
-
-Rule: 4.5 to 1 for text, 3 to 1 for borders, icons, and focus rings. Ratios below are approximate. Replace with your Stark numbers if they differ.
-
-| Text | On | Ratio | Result |
-|---|---|---|---|
-| `text` | `bg`, `surface`, `bg-muted`, `primary-light` | about 13.9 on `bg` | Pass |
-| `text-soft` | `bg`, `surface` only | about 4.8 on `bg` | Pass |
-| `text-soft` | `bg-muted` | about 4.3 | Not allowed |
-| `text-on-primary` | `primary`, `primary-dark` | about 6.9 on `primary` | Pass |
-| `text-on-primary` | `secondary`, `secondary-dark` | about 8.7 on `secondary` | Pass |
-| `primary` (links) | `bg`, `surface` | about 6.1 on `bg` | Pass |
-| `success-dark` | `success-light` | about 6.6 | Pass |
-| `warning-dark` | `warning-light` | about 7.8 | Pass |
-| `error-dark` | `error-light`, `bg`, `surface` | above 7 | Pass |
-| `info-dark` | `info-light` | about 6.4 | Pass |
-| `border-strong` | `surface` | about 3.6 | Pass (3 needed) |
-| `primary-focus` | `bg`, `surface` | about 5.5 on `surface` | Pass (3 needed) |
-| status icon colors | their `-light` background | about 4.2 on `success-light` | Pass (3 needed) |
-
-### 1.4 Status badges
+### 2.5 Status badges
 
 | Badge | Background | Text |
 |---|---|---|
@@ -127,159 +75,125 @@ Rule: 4.5 to 1 for text, 3 to 1 for borders, icons, and focus rings. Ratios belo
 | Reading | `info-light` | `info-dark` |
 | Finished | `success-light` | `success-dark` |
 
-Every badge shows a text label, never color alone.
+### 2.6 Color rules
 
-### 1.5 Rules
+- Text 4.5 to 1 contrast. Borders, icons, and focus ring 3 to 1. Checked in Stark.
+- `text-soft` only on `bg` and `surface`. Not on `bg-muted` (too low).
+- Text on colored backgrounds uses only the pairs above: `text-on-primary` on `primary`, status dark on status light.
+- Status always has an icon or a text label as well as color.
 
-- Components use tokens only. No raw hex in CSS outside the `:root` block.
-- `secondary` is decoration only: logo accent, dividers, empty state art, small highlights. Never for buttons, links, or anything that could look like an error (it sits close to `error` in tone).
-- Status is never shown by color alone. Always an icon or a text label too.
-- Focus ring: 2 px `primary-focus`, 2 px offset, on every clickable item.
-- Disabled controls use `bg-muted` background and `border` border. Disabled text has no contrast requirement, but keep it readable.
-- Text on colored backgrounds comes only from the allowed pairs in 1.3.
+## 3. Typography
 
-## 2. Typography
+### 3.1 Fonts (free, Google Fonts)
 
-### 2.1 Fonts
-
-| Role | Font | Weights | Used for |
+| Role | Font | Weights | Fallback |
 |---|---|---|---|
-| Heading | Fraunces (serif) | 600 | Page titles, section headings, book titles |
-| Body | Work Sans (sans-serif) | 400, 500, 600 | Body text, buttons, forms, navbar, cards |
-| Label | IBM Plex Mono (monospace) | 500 | Small labels, status badges, page numbers, progress numbers |
+| Heading | Fraunces | 600 | Georgia, serif |
+| Body | Work Sans | 400, 500, 600 | system-ui, sans-serif |
+| Label | IBM Plex Mono | 500 | ui-monospace, monospace |
 
-All three are free on Google Fonts.
-
-### 2.2 Load fonts
-
-Add to the layout `<head>` before the stylesheet:
-
-```html
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=IBM+Plex+Mono:wght@500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-```
-
-`display=swap` shows text in the fallback font first, so the page is never blank while fonts load.
-
-### 2.3 CSS variables
-
-```css
-:root {
-  --font-heading: "Fraunces", Georgia, serif;
-  --font-body: "Work Sans", system-ui, sans-serif;
-  --font-label: "IBM Plex Mono", ui-monospace, monospace;
-}
-```
-
-### 2.4 Rules
-
-- Headings use `--font-heading`, weight 600 only.
-- Body, buttons, inputs, navbar, and card text use `--font-body`.
-- `--font-label` is only for short uppercase labels, badges, and numbers. Never for sentences.
-- Body text is never below 14 px. Inputs are 16 px so phones do not zoom.
-- Long text (book description, notes) stays 60 to 75 characters per line.
-- Only the weights listed above are loaded. Do not add more.
-
-### 2.5 Type scale
+### 3.2 Type scale
 
 | Style (Figma name) | Font | Weight | Desktop size / line | Mobile size / line | Used for |
 |---|---|---|---|---|---|
-| `Heading/Display` | Fraunces | 600 | 40 / 48 | 32 / 40 | Landing page hero only |
-| `Heading/H1` | Fraunces | 600 | 32 / 40 | 28 / 36 | Page titles (My Library, Add a book) |
+| `Heading/Display` | Fraunces | 600 | 40 / 48 | 32 / 40 | Landing hero only |
+| `Heading/H1` | Fraunces | 600 | 32 / 40 | 28 / 36 | Page titles |
 | `Heading/H2` | Fraunces | 600 | 24 / 32 | 24 / 32 | Section headings (Notes, Description) |
 | `Heading/H3` | Fraunces | 600 | 20 / 28 | 20 / 28 | Book title on cards, modal title |
-| `Body/Regular` | Work Sans | 400 | 16 / 24 | 16 / 24 | Body text, inputs, descriptions, notes |
+| `Body/Regular` | Work Sans | 400 | 16 / 24 | 16 / 24 | Body text, inputs, notes, flash text |
 | `Body/Medium` | Work Sans | 500 | 16 / 24 | 16 / 24 | Form labels, navbar links |
-| `Body/Small` | Work Sans | 400 | 14 / 20 | 14 / 20 | Author on cards, hints, error messages, footer |
+| `Body/Small` | Work Sans | 400 | 14 / 20 | 14 / 20 | Author, hints, form errors, footer |
 | `Button` | Work Sans | 600 | 16 / 20 | 16 / 20 | Button text |
-| `Label` | IBM Plex Mono | 500 | 12 / 16 | 12 / 16 | Status badges, page numbers, progress, pagination text |
+| `Label` | IBM Plex Mono | 500 | 12 / 16 | 12 / 16 | Badges, page numbers, progress numbers |
 
-`Label` is uppercase with 4% letter spacing.
+`Label` is uppercase with 4% letter spacing. Only Display and H1 change on mobile.
 
-Only Display and H1 change on mobile.
+### 3.3 Type rules
 
-### 2.6 CSS
+- One H1 per page. Do not skip heading levels in HTML. Choose by meaning, not size.
+- Fraunces is weight 600 only. No italics, no extra weights.
+- `Label` is for short labels and numbers, never sentences.
+- Body text never below 14 px. Inputs are 16 px so phones do not zoom.
+- Long text (description, notes) stays 60 to 75 characters per line.
 
-```css
-:root {
-  --text-display: 2.5rem;    /* 40 */
-  --text-h1: 2rem;           /* 32 */
-  --text-h2: 1.5rem;         /* 24 */
-  --text-h3: 1.25rem;        /* 20 */
-  --text-base: 1rem;         /* 16 */
-  --text-small: 0.875rem;    /* 14 */
-  --text-label: 0.75rem;     /* 12 */
+## 4. Spacing, shape, depth
 
-  --leading-display: 3rem;   /* 48 */
-  --leading-h1: 2.5rem;      /* 40 */
-  --leading-h2: 2rem;        /* 32 */
-  --leading-h3: 1.75rem;     /* 28 */
-  --leading-base: 1.5rem;    /* 24 */
-  --leading-small: 1.25rem;  /* 20 */
-  --leading-label: 1rem;     /* 16 */
-}
-
-@media (max-width: 600px) {
-  :root {
-    --text-display: 2rem;      /* 32 */
-    --leading-display: 2.5rem; /* 40 */
-    --text-h1: 1.75rem;        /* 28 */
-    --leading-h1: 2.25rem;     /* 36 */
-  }
-}
-
-body {
-  font-family: var(--font-body);
-  font-size: var(--text-base);
-  line-height: var(--leading-base);
-  color: var(--text);
-  background: var(--bg);
-}
-
-h1, h2, h3, .display {
-  font-family: var(--font-heading);
-  font-weight: 600;
-}
-
-.display { font-size: var(--text-display); line-height: var(--leading-display); }
-h1 { font-size: var(--text-h1); line-height: var(--leading-h1); }
-h2 { font-size: var(--text-h2); line-height: var(--leading-h2); }
-h3 { font-size: var(--text-h3); line-height: var(--leading-h3); }
-
-.text-small { font-size: var(--text-small); line-height: var(--leading-small); }
-
-.label {
-  font-family: var(--font-label);
-  font-weight: 500;
-  font-size: var(--text-label);
-  line-height: var(--leading-label);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-```
-
-Sizes use `rem` so they follow the user's browser font size.
-
-### 2.7 Where each style is used
-
-| Screen part | Style |
+| Item | Values |
 |---|---|
-| Landing hero | Display |
-| Page title | H1 |
-| "Notes (3)", "Description" | H2 |
-| Book title on card, modal title | H3 |
-| Description, notes, form text | Body/Regular |
-| Form labels, navbar links | Body/Medium |
-| Author, hints, form errors, footer | Body/Small |
-| Buttons | Button |
-| Status badges, "Page 2 of 5", progress "42%" | Label |
-| Flash message text | Body/Regular |
+| Spacing scale (px) | 4, 8, 12, 16, 24, 32, 48, 64 |
+| Radius | `sm` 4 (inputs, badges), `md` 8 (cards, buttons, modal), `full` 999 (progress bar) |
+| Border | 1 px `border` (cards, dividers), 1 px `border-strong` (inputs) |
+| Shadow `sm` | `0 1px 2px rgba(38,36,31,0.08)`, cards |
+| Shadow `md` | `0 4px 12px rgba(38,36,31,0.12)`, modal, card hover |
+| Focus ring | 2 px `primary-focus`, 2 px offset, on every clickable item |
 
-### 2.8 Rules
+## 5. Layout
 
-- Headings do not skip levels in the HTML (H1, then H2, then H3). Choose by meaning, not size.
-- One H1 per page.
-- Do not use bold or italics on Fraunces. Weight 600 only.
-- Text color comes from tokens only (`text`, `text-soft`, status dark colors).
-- Do not use `Label` for sentences.
+| | Desktop | Mobile |
+|---|---|---|
+| Figma frame | 1440 wide | 390 wide |
+| Content width | max 1120, centered | full width |
+| Grid | 12 columns, gutter 24 | 4 columns, gutter 16 |
+| Side margin | auto | 16 |
+
+- Breakpoints: 600 and 900 px.
+- Library grid: 3 cards desktop, 2 tablet, 1 phone. 12 books per page.
+- Forms (auth pages): one centered card, max width 420.
+- Page padding top and bottom: 48 desktop, 24 mobile.
+
+## 6. Icons
+
+- SVG files in `frontend/public/icons/`. Default size 20 px, 24 px for large uses.
+- One simple line style across all icons, same stroke width.
+- Set: eyeOpen, eyeClosed, cross, menu, search, plus, edit, trash, check, warning, chevronLeft, chevronRight, google.
+- An icon never stands alone: buttons with only an icon have an accessible label.
+
+## 7. Components
+
+Every component is designed once in Figma with its states, then reused in all screens.
+
+| Component | Spec | States |
+|---|---|---|
+| **Button primary** | Height 44, padding 0 24, radius `md`. `primary` background, `text-on-primary` text, `Button` style. | default, hover (`primary-dark`), pressed (`primary-dark`), focus, disabled (`bg-muted`), loading (spinner, label kept) |
+| **Button secondary** | Same size. `surface` background, 1 px `border-strong`, `text`. | default, hover (`bg-muted`), pressed, focus, disabled |
+| **Button danger** | Same size. `error` background, `text-on-primary` text. Delete only. | default, hover (`error-dark`), focus, disabled |
+| **Link** | `primary`, underline on hover. | default, hover, focus, visited same as default |
+| **Text input, select, textarea** | Height 44 (textarea min 96), padding 0 12, radius `sm`, 1 px `border-strong`, `surface`, 16 px text. Label above (`Body/Medium`), hint or error below (`Body/Small`). | default, hover, focus (ring), filled, error (border `error`, message `error-dark`, icon), disabled (`bg-muted`) |
+| **Password input** | Text input with a show or hide eye icon on the right. | same as input |
+| **Checkbox** | 20 px square, radius `sm`, label right (Remember me). | unchecked, checked (`primary`), focus, disabled |
+| **Code input (OTP)** | One centered input, 6 digits, `IBM Plex Mono` 24 px, wide letter spacing. | same as input |
+| **Cover upload** | Dashed 1 px `border-strong` box with preview, file type and size hint, Replace button on edit. | empty, filled, error |
+| **Search and filter bar** | Search input with search icon, status select, genre select, Clear link. No Apply button. | default, loading (list dims) |
+| **Book card** | `surface`, 1 px `border`, radius `md`, shadow `sm`, padding 16. Cover on top (2:3), title `H3` (max 2 lines), author `Body/Small` `text-soft`, genre `Label`, status badge, progress bar with percent. | default, hover (shadow `md`), focus, no cover (placeholder) |
+| **Status badge** | `Label` style, radius `sm`, padding 4 8. Colors from 2.5. Always has the text. | want to read, reading, finished |
+| **Progress bar** | Height 8, radius `full`, track `bg-muted`, fill `primary`. Fill `success` at 100%. Percent in `Label` beside it. | 0%, partial, 100% |
+| **Alert (flash)** | Status light background, 1 px status border, status icon, status dark text (`Body/Regular`), close icon. Max width 640, under the navbar. | success, info, warning, error |
+| **Modal** | `surface`, radius `md`, shadow `md`, padding 24, max width 400. Overlay `text` at 50%. Title `H3`, text `Body/Regular`. Cancel (secondary) and Delete (danger), right aligned. | open. Esc and Cancel close it, focus stays inside |
+| **Pagination** | Items 40 x 40, `Label` numbers, radius `sm`. Current page `primary` with `text-on-primary`. Others `primary` text, hover `primary-light`. Mobile: Prev, "PAGE 2 OF 5", Next. | default, hover, current, disabled (Prev on first page, Next on last) |
+| **Navbar** | Height 64, `surface`, 1 px `border` at the bottom. Logo left, links `Body/Medium`, active link `primary` with underline. Mobile: hamburger menu. | visitor, logged in, menu open |
+| **Note card** | `surface`, 1 px `border`, radius `md`, padding 16. Text `Body/Regular`, date and edited label `Body/Small` `text-soft`, page number `Label`, edit and delete icon buttons. | default, hover, no notes yet |
+| **Empty state** | Decorative art in `secondary` tones, `H3`, one line of `Body/Regular`, one primary button. | no books, no search results, no notes |
+| **Error page** | Status number in `Display`, message, Back to home button. | 404, 500 |
+| **Footer** | `Body/Small`, `text-soft`, centered. | default |
+
+## 8. Accessibility
+
+- Touch targets at least 44 px on mobile.
+- Every field has a visible label. Errors sit under the field and are tied to it.
+- Visible focus ring on every clickable item.
+- Nothing relies on color alone.
+- Motion: only simple hover and fade. No other animation in v1.
+
+## 9. Figma setup
+
+- Color variables or styles named exactly as the tokens in section 2.
+- Text styles named exactly as in 3.2.
+- Effect styles: `shadow/sm`, `shadow/md`.
+- Components named `Button/Primary`, `Input/Text`, `Card/Book`, `Badge/Status`, and so on. Variants for states.
+- Pages: Cover, Moodboard, Design System, Wireframes, Desktop, Mobile, Prototype.
+
+## 10. Done when
+
+- Tokens, type styles, and effect styles exist in Figma and match this file.
+- Every component in section 7 exists with all its states.
+- Each component is used at least once in the mockups.
