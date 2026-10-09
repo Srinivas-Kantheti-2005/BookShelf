@@ -139,6 +139,7 @@ In Figma the mobile heading sizes are the styles `Heading/Display Mobile` and `H
 - Library grid: 3 cards desktop, 2 tablet, 1 phone. 12 books per page.
 - Auth pages: one centered card, 420 wide.
 - Page padding top and bottom: 48 desktop, 24 mobile.
+- Mobile first. Each screen is designed at 390 first, then 1440. CSS base styles are for phones, with `min-width` media queries at 600 and 900 px.
 
 ## 6. Icons
 
