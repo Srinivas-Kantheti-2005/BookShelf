@@ -1,0 +1,55 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Background -->
+  <rect width="512" height="512" fill="#F4F2EE"/>
+
+  <!-- Left book -->
+  <rect
+    x="153.5" y="190"
+    width="60" height="149"
+    rx="11"
+    fill="#2D5F80"
+  />
+
+  <!-- Middle leaning book -->
+  <g transform="rotate(7 253 250)">
+    <rect
+      x="226" y="158"
+      width="60" height="181"
+      rx="11"
+      fill="#802D55"
+    />
+  </g>
+
+  <!-- Right book -->
+  <rect
+    x="296" y="137"
+    width="63" height="202"
+    rx="11"
+    fill="#2D5F80"
+  />
+
+  <!-- Shelf -->
+  <rect
+    x="123" y="344"
+    width="266" height="15"
+    rx="7.5"
+    fill="#26241F"
+  />
+
+  <!-- Left book details -->
+  <g fill="#F4F2EE">
+    <rect x="163" y="219" width="40" height="8" rx="4"/>
+    <rect x="163" y="237" width="40" height="8" rx="4"/>
+
+    <!-- Middle book details -->
+    <g transform="rotate(7 253 250)">
+      <rect x="236" y="192" width="40" height="8" rx="4"/>
+      <rect x="236" y="211" width="40" height="8" rx="4"/>
+    </g>
+
+    <!-- Right book details -->
+    <rect x="306" y="175" width="43" height="8" rx="4"/>
+    <rect x="306" y="194" width="43" height="8" rx="4"/>
+  </g>
+</svg>

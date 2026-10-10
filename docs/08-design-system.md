@@ -127,33 +127,38 @@ Text needs 4.5 to 1. Borders, icons, and the focus ring need 3 to 1. `~` means e
 
 | Role | Font | Weights | Fallback |
 |---|---|---|---|
-| Heading | Fraunces | 600 | Georgia, serif |
-| Body | Work Sans | 400, 500, 600 | system-ui, sans-serif |
-| Label | IBM Plex Mono | 500 | ui-monospace, monospace |
+| Headings, wordmark, reading text | Gentium Book Plus | 400, 700 | Georgia, serif |
+| Interface | Inter | 400, 500, 600 | system-ui, sans-serif |
+
+Serif for what you read (titles, descriptions, notes). Sans-serif for what you use (buttons, forms, navigation, labels).
 
 ### 3.2 Type scale
 
 | Style (Figma name) | Font | Weight | Desktop size / line | Mobile size / line | Used for |
 |---|---|---|---|---|---|
-| `Heading/Display` | Fraunces | 600 | 40 / 48 | 32 / 40 | Landing hero only |
-| `Heading/H1` | Fraunces | 600 | 32 / 40 | 28 / 36 | Page titles |
-| `Heading/H2` | Fraunces | 600 | 24 / 32 | 24 / 32 | Section headings (Notes, Description) |
-| `Heading/H3` | Fraunces | 600 | 20 / 28 | 20 / 28 | Book title on cards, modal title, wordmark |
-| `Body/Regular` | Work Sans | 400 | 16 / 24 | 16 / 24 | Body text, inputs, notes, flash text |
-| `Body/Medium` | Work Sans | 500 | 16 / 24 | 16 / 24 | Form labels, navbar links |
-| `Body/Small` | Work Sans | 400 | 14 / 20 | 14 / 20 | Author, hints, form errors, footer |
-| `Button` | Work Sans | 600 | 16 / 20 | 16 / 20 | Button text |
-| `Label` | IBM Plex Mono | 500 | 12 / 16 | 12 / 16 | Badges, page numbers, progress numbers |
+| `Heading/Display` | Gentium Book Plus | 700 | 44 / 52 | 36 / 44 | Landing hero only |
+| `Heading/H1` | Gentium Book Plus | 700 | 32 / 40 | 28 / 36 | Page titles |
+| `Heading/H2` | Gentium Book Plus | 700 | 24 / 32 | 24 / 32 | Section headings |
+| `Heading/H3` | Gentium Book Plus | 700 | 20 / 28 | 20 / 28 | Book title on cards, modal title, wordmark |
+| `Reading/Regular` | Gentium Book Plus | 400 | 17 / 28 | 17 / 28 | Book description, notes |
+| `Body/Regular` | Inter | 400 | 16 / 24 | 16 / 24 | Inputs, alert text, UI text |
+| `Body/Medium` | Inter | 500 | 16 / 24 | 16 / 24 | Form labels, nav links |
+| `Body/Small` | Inter | 400 | 14 / 20 | 14 / 20 | Author, hints, form errors, footer |
+| `Button` | Inter | 600 | 16 / 20 | 16 / 20 | Button text |
+| `Label` | Inter | 500 | 12 / 16 | 12 / 16 | Badges, page numbers, progress numbers |
+| `Code` | Inter | 600 | 24 / 32 | 24 / 32 | OTP input only |
 
-In Figma the mobile heading sizes are the styles `Heading/Display Mobile` and `Heading/H1 Mobile`. `Label` is uppercase with 4% letter spacing.
+In Figma the mobile heading sizes are the styles `Heading/Display Mobile` and `Heading/H1 Mobile`. `Label` is uppercase with 4% letter spacing. `Code` has 12% letter spacing.
 
 ### 3.3 Type rules
 
 - One H1 per page. Do not skip heading levels in HTML. Choose by meaning, not size.
-- Fraunces is weight 600 only. No italics, no extra weights.
+- Gentium Book Plus has only weights 400 and 700. Headings are always 700.
+- Reading text (`Reading/Regular`) is for long text only. UI text is always Inter.
 - `Label` is for short labels and numbers, never sentences.
-- Body text never below 14 px. Inputs are 16 px so phones do not zoom.
+- Interface text is never below 14 px. Inputs are 16 px so phones do not zoom.
 - Long text (description, notes) stays 60 to 75 characters per line.
+- Copy style: only the first word of a button, link, or label is capitalized (`Forgot password?`, `Save book`).
 
 ## 4. Spacing, shape, depth
 
