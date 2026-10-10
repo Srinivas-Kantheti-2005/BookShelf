@@ -15,25 +15,25 @@ Token names in this file are also the CSS variable names (`primary` becomes `--p
 
 ## 2. Colors
 
-Palette made with the 9 shade HSB arc method. 7 scales in Figma. Only the 28 tokens below are used.
+Palette made with the 9 shade HSB arc method, 7 scales in Figma. Final tokens were chosen after WebAIM contrast tests. Only the 28 tokens below are used. Page is `bg` (warm off-white), cards are `surface` (white), and `primary-light` is only for small tints.
 
-### 2.1 Primary (ink blue): buttons, links, focus
+### 2.1 Primary: buttons, links, focus
 
 | Token | Hex | Used for |
 |---|---|---|
-| `primary-light` | `#EBF7FF` | Selected items, hover background |
-| `primary-focus` | `#3B6E8F` | Focus ring |
-| `primary` | `#2D5F80` | Buttons, links, active nav, current page |
-| `primary-dark` | `#1A4866` | Button hover and pressed |
+| `primary-light` | `#EBF7FF` | Selected items, hover background, active menu row |
+| `primary-focus` | `#1A4866` | Focus ring |
+| `primary` | `#0B334D` | Buttons, links, active nav, current page |
+| `primary-dark` | `#00253D` | Button hover and pressed |
 
 ### 2.2 Secondary (wine): decoration only
 
 | Token | Hex | Used for |
 |---|---|---|
 | `secondary-light` | `#FFEBF4` | Soft decorative background |
-| `secondary-focus` | `#A0607F` | Decorative icons, highlights |
-| `secondary` | `#802D55` | Logo accent, dividers, empty state art |
-| `secondary-dark` | `#661A3F` | Decorative text accents |
+| `secondary-focus` | `#661A3F` | Decorative icons, highlights |
+| `secondary` | `#4D0B2B` | Logo accent, dividers, empty state art |
+| `secondary-dark` | `#3D001E` | Decorative accents |
 
 Never use secondary for buttons, links, or anything that could look like an error.
 
@@ -50,22 +50,24 @@ Never use secondary for buttons, links, or anything that could look like an erro
 | `surface` | `#FFFFFF` | Cards, inputs, modal |
 | `text-on-primary` | `#FFFFFF` | Text on primary and danger buttons |
 
-### 2.4 Status: light is background, middle is icon and border, dark is text
+### 2.4 Status: light is background, default is icon and border, dark is text
+
+Light backgrounds are shade 200 of each scale, so alerts and badges stand out from the page.
 
 | Token | Hex | Used for |
 |---|---|---|
-| `success-light` | `#EBFFF1` | Success alert, Finished badge background |
-| `success` | `#358550` | Success icon, border, 100% progress fill |
-| `success-dark` | `#1A6633` | Success text |
-| `warning-light` | `#FFF8EB` | Warning background |
-| `warning` | `#A8803B` | Warning icon, border |
-| `warning-dark` | `#664A1A` | Warning text |
-| `error-light` | `#FFECEB` | Error background |
-| `error` | `#A1453D` | Error icon, border, Delete button |
-| `error-dark` | `#66201A` | Error text, form errors |
-| `info-light` | `#EBFFFF` | Info alert, Reading badge background |
-| `info` | `#3B9494` | Info icon, border |
-| `info-dark` | `#1A6666` | Info text |
+| `success-light` | `#C1E5CD` | Success alert, Finished badge background |
+| `success` | `#1A6633` | Success icon, border, 100% progress fill |
+| `success-dark` | `#0B4D21` | Success text |
+| `warning-light` | `#E5D8C1` | Warning alert background |
+| `warning` | `#664A1A` | Warning icon, border |
+| `warning-dark` | `#4D350B` | Warning text |
+| `error-light` | `#E5C4C1` | Error alert background |
+| `error` | `#66201A` | Error icon, border, Delete button |
+| `error-dark` | `#4D110B` | Error text, form errors |
+| `info-light` | `#C1E5E5` | Info alert, Reading badge background |
+| `info` | `#1A6666` | Info icon, border |
+| `info-dark` | `#0B4D4D` | Info text |
 
 ### 2.5 Status badges
 
@@ -75,12 +77,49 @@ Never use secondary for buttons, links, or anything that could look like an erro
 | Reading | `info-light` | `info-dark` |
 | Finished | `success-light` | `success-dark` |
 
-### 2.6 Color rules
+### 2.6 Contrast (WebAIM, WCAG AA)
 
-- Text 4.5 to 1 contrast. Borders, icons, and focus ring 3 to 1. Checked in Stark.
-- `text-soft` only on `bg` and `surface`. Not on `bg-muted` (too low).
-- Text on colored backgrounds uses only the pairs above: `text-on-primary` on `primary`, status dark on status light.
+Text needs 4.5 to 1. Borders, icons, and the focus ring need 3 to 1. `~` means estimated, to confirm in WebAIM.
+
+| Pair | Ratio | Needs |
+|---|---|---|
+| `text` on `bg` | 13.86 | 4.5 |
+| `text` on `surface` | 15.50 | 4.5 |
+| `text` on `bg-muted` | 12.33 | 4.5 |
+| `text` on `primary-light` | 14.23 | 4.5 |
+| `text-soft` on `bg` | 4.80 | 4.5 |
+| `text-soft` on `surface` | 5.37 | 4.5 |
+| `text-on-primary` on `primary` | 13.16 | 4.5 |
+| `text-on-primary` on `primary-dark` | 15.76 | 4.5 |
+| `text-on-primary` on `error` | ~11.8 | 4.5 |
+| `text-on-primary` on `error-dark` | ~15 | 4.5 |
+| `primary` on `bg` | 11.77 | 4.5 |
+| `primary` on `surface` | 13.16 | 4.5 |
+| `primary` on `primary-light` | 12.08 | 4.5 |
+| `success-dark` on `success-light` | ~7.3 | 4.5 |
+| `info-dark` on `info-light` | ~7.2 | 4.5 |
+| `warning-dark` on `warning-light` | ~8.2 | 4.5 |
+| `error-dark` on `error-light` | ~9.3 | 4.5 |
+| `error-dark` on `bg` | ~13.4 | 4.5 |
+| `border-strong` on `surface` | 3.56 | 3 |
+| `border-strong` on `bg` | 3.18 | 3 |
+| `primary-focus` on `bg` | 8.68 | 3 |
+| `primary-focus` on `surface` | 9.70 | 3 |
+| `success` on `success-light` | ~5.1 | 3 |
+| `info` on `info-light` | ~5.0 | 3 |
+| `warning` on `warning-light` | ~5.8 | 3 |
+| `error` on `error-light` | ~7.3 | 3 |
+| `error` on `surface` | ~11.8 | 3 |
+
+### 2.7 Color rules
+
+- Components use tokens only, never raw hex.
+- `text-soft` only on `bg` and `surface`. Not on `bg-muted`.
+- Text on a status light background uses only that status's `-dark` token.
+- `border-strong` and the status default colors (`success`, `warning`, `error`, `info`) are for borders and icons only, never text. `error-dark` is the text color for form errors.
+- Text on colored backgrounds uses only the pairs in 2.6.
 - Status always has an icon or a text label as well as color.
+- `secondary` is decoration only.
 
 ## 3. Typography
 
