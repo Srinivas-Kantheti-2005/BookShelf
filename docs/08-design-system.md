@@ -187,11 +187,68 @@ In Figma the mobile heading sizes are the styles `Heading/Display Mobile` and `H
 
 ## 6. Icons
 
-- Source: Lucide (free). One line style, stroke width 2, 24 px frame, stroke color `text` unless a component sets it. The Google logo is the official one, in its original colors.
-- Set (16): eyeOpen, eyeClosed, cross, menu, search, plus, edit, trash, check, info, warning, error, chevronLeft, chevronRight, google, spinner.
-- Alert icons take their status color inside the alert.
-- An icon never stands alone: a button with only an icon has an accessible label.
-- SVG files go in `frontend/public/icons/` at build time.
+### 6.1 Source and style
+
+- Source: Lucide (free, open source). The Google logo is the official one, in its original colors.
+- One line style for all icons: stroke width 2, rounded ends and joins, no fill.
+- Every icon is a 24 x 24 frame, named `Icon/name` in Figma.
+- Default stroke color is `text`. The component that uses an icon sets the color (see 6.3).
+
+### 6.2 Icon set (19)
+
+| Figma component | Lucide name | Used for |
+|---|---|---|
+| `Icon/eyeOpen` | eye | Show password |
+| `Icon/eyeClosed` | eye-off | Hide password |
+| `Icon/cross` | x | Close alert and modal |
+| `Icon/menu` | menu | Mobile hamburger |
+| `Icon/search` | search | Search input |
+| `Icon/plus` | plus | Add book |
+| `Icon/edit` | pencil | Edit book and note |
+| `Icon/trash` | trash-2 | Delete book and note |
+| `Icon/check` | check | Checkbox, success alert |
+| `Icon/info` | info | Info alert |
+| `Icon/warning` | triangle-alert | Warning alert |
+| `Icon/error` | circle-alert | Error alert, input error |
+| `Icon/chevronLeft` | chevron-left | Pagination Prev |
+| `Icon/chevronRight` | chevron-right | Pagination Next |
+| `Icon/chevronDown` | chevron-down | Select |
+| `Icon/book` | book | No-cover placeholder |
+| `Icon/upload` | upload | Cover upload |
+| `Icon/spinner` | loader-circle | Loading |
+| `Icon/google` | official logo | Continue with Google |
+
+### 6.3 Sizes and colors
+
+| Where | Size | Stroke color |
+|---|---|---|
+| Input icons (search, eye, chevron) | 20 | `border-strong` |
+| Input error icon | 16 | `error` |
+| Buttons (left icon, Google) | 20 | same as the button text |
+| Icon buttons (edit, delete, close) | 20 | edit and close `text-soft`, delete `error` |
+| Alerts | 20 | status default (`success`, `info`, `warning`, `error`) |
+| Checkbox check | 16 | `text-on-primary` |
+| Pagination chevrons | 16 | `text` |
+| Navbar menu | 24 | `text` |
+| No-cover placeholder | 32 | `text-soft` |
+| Cover upload | 24 | `text-soft` |
+| Spinner | 20 | same as the text next to it |
+
+Sizes are 16, 20, 24, or 32 only. Colors come from tokens, never raw hex.
+
+### 6.4 Rules
+
+- Icons never carry meaning alone. A button with only an icon has an accessible label (`aria-label` in HTML).
+- Decorative icons next to text are hidden from screen readers.
+- Status icons (`check`, `info`, `warning`, `error`) always come with text.
+- The spinner rotates, one turn per second. This is the only animation in v1 besides hover and fade.
+- Do not mix in icons from other sets.
+
+### 6.5 Build and delivery
+
+- At build time, export each icon as SVG into `frontend/public/icons/` (`eyeOpen.svg`, `trash.svg`, and so on).
+- Use `stroke="currentColor"` and no fixed width and height in the SVG, so CSS controls color and size.
+- The Google logo SVG keeps its fixed colors.
 
 ## 7. Components
 
