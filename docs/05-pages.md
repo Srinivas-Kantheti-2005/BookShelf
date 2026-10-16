@@ -659,17 +659,22 @@ Pagination needs no JavaScript. The page links are plain links, and the server r
 
 | Page | Title |
 |---|---|
-| Landing | BookShelf: your personal reading library |
-| Register | Create your account | BookShelf |
-| Verify email | Check your email | BookShelf |
-| Login | Log in | BookShelf |
-| Forgot, Reset | Forgot password | BookShelf, Reset password | BookShelf |
-| Library | My library | BookShelf |
-| Add, Edit book | Add a book | BookShelf, Edit book | BookShelf |
-| Book details | The book title | BookShelf |
-| Edit note | Edit note | BookShelf |
-| Profile pages | Profile, Edit profile, Change password, each followed by | BookShelf |
-| Errors | Page not found | BookShelf, Something went wrong | BookShelf |
+| Landing | BookShelf - your personal reading library |
+| Register | Create your account - BookShelf |
+| Verify email | Check your email - BookShelf |
+| Login | Log in - BookShelf |
+| Forgot password | Forgot password - BookShelf |
+| Reset password | Reset password - BookShelf |
+| Library | My library - BookShelf |
+| Add book | Add a book - BookShelf |
+| Edit book | Edit book - BookShelf |
+| Book details | The book title - BookShelf |
+| Edit note | Edit note - BookShelf |
+| Profile | Profile - BookShelf |
+| Edit profile | Edit profile - BookShelf |
+| Change password | Change password - BookShelf (Google-only account: Set a password - BookShelf) |
+| Not found | Page not found - BookShelf |
+| Server error | Something went wrong - BookShelf |
 
 ## 8. Requirements covered
 
