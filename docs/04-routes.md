@@ -23,7 +23,7 @@
 | POST | `/verify-email` | Public | Check code. Success: verify, set JWT, redirect to `/books` | US-21 |
 | POST | `/verify-email/resend` | Public | New OTP, 60 second wait | US-22 |
 | GET | `/login` | Public | Login form with Remember me | US-2, US-23 |
-| POST | `/login` | Public | Check credentials, set JWT cookie, redirect to `/books`. Unverified user goes to `/verify-email` | US-2, US-23 |
+| POST | `/login` | Public | Check username and password, set JWT cookie, redirect to `/books`. Unverified user goes to `/verify-email` | US-2, US-23 |
 | GET | `/forgot-password` | Public | Forgot password form | US-26 |
 | POST | `/forgot-password` | Public | Send reset code if the account exists, always show the same message, redirect to `/reset-password` | US-26 |
 | GET | `/reset-password` | Public | Reset form. No pending email cookie means redirect to `/forgot-password` | US-26 |
@@ -54,6 +54,16 @@
 | PUT | `/books/:id/notes/:noteId` | Login | Update text and page, redirect to `/books/:id` | US-13 |
 | DELETE | `/books/:id/notes/:noteId` | Login | Delete note, redirect to `/books/:id` | US-14 |
 
+## 4.1 Profile routes
+
+| Method | URL | Auth | What it does | Story |
+|---|---|---|---|---|
+| GET | `/profile` | Login | Profile page with info and library stats | US-27 |
+| GET | `/profile/edit` | Login | Edit form (username, image), pre-filled | US-28, US-29 |
+| PUT | `/profile` | Login | Validate, update username, upload, replace, or remove the image, redirect to `/profile` | US-28, US-29 |
+
+There is no `:id` in these URLs. The user comes from the JWT, so nobody can open another profile. The edit form is `multipart/form-data`.
+
 ## 5. Query params for `/books`
 
 | Param | Values | Example |
@@ -79,7 +89,8 @@ All can combine: `/books?q=atomic&status=reading&genre=self-help&page=2`. Changi
 |---|---|
 | POST `/register` | username, email, password, confirmPassword |
 | POST `/verify-email` | code |
-| POST `/login` | email, password, rememberMe |
+| PUT `/profile` | username, avatar (file), removeAvatar |
+| POST `/login` | username, password, rememberMe |
 | POST `/forgot-password` | email |
 | POST `/reset-password` | code, password, confirmPassword |
 | POST, PUT `/books` | title, author, genre, description, totalPages, currentPage, status, cover (file) |

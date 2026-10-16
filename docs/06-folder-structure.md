@@ -26,7 +26,8 @@ BookShelf/
 │   │   │   ├── navbar.ejs
 │   │   │   ├── footer.ejs
 │   │   │   ├── pagination.ejs
-│   │   │   └── formErrors.ejs
+│   │   │   ├── formErrors.ejs
+|   |   |   └──avatar.ejs
 │   │   ├── alerts/
 │   │   │   ├── flash.ejs
 │   │   │   ├── modal.ejs
@@ -46,6 +47,9 @@ BookShelf/
 │   │   │   ├── new.ejs
 │   │   │   ├── edit.ejs
 │   │   │   └── show.ejs
+|   |   └── profile/
+|   |       ├── show.ejs
+|   |       └── edit.ejs
 │   │   └── notes/
 │   │       └── edit.ejs
 │   └── public/                     static files
@@ -58,7 +62,8 @@ BookShelf/
 │       │   ├── otpTimer.js         resend countdown
 │       │   ├── flash.js            close button
 │       │   ├── modal.js            delete confirmation
-│       │   └── navbar.js           hamburger
+│       │   ├── navbar.js           hamburger
+|       |   └── avatarUpload.js
 │       ├── images/
 │       │   ├── logo.png
 │       │   └── placeholderCover.png
@@ -75,39 +80,45 @@ BookShelf/
 │           ├── warning.svg
 │           ├── chevronLeft.svg
 │           ├── chevronRight.svg
+|           ├── verified.svg
 │           └── google.svg
 │
 ├── backend/                        server logic
 │   ├── config/                     setup of outside services
-│   │   ├── cloudinary.js           Cloudinary and Multer storage
+│   │   ├── cloudinary.js           Cloudinary and Multer storage (for both covers and avatars)
 │   │   ├── passport.js             Google OAuth strategy
-│   │   └── mailer.js               Nodemailer transport
+│   │   ├── mailer.js               Nodemailer transport
 │   │   ├── session.js              express-session and connect-mongo setup
 │   ├── routes/                     URL to controller mapping only
 │   │   ├── pageRoutes.js           /
 │   │   ├── authRoutes.js           register, verify, login, logout, forgot, reset, google
+|   |   ├── profileRoute.js
 │   │   ├── bookRoutes.js           /books and /books/:id
 │   │   └── noteRoutes.js           /books/:id/notes
 │   ├── controllers/                request in, response out
 │   │   ├── pageController.js
 │   │   ├── authController.js
 │   │   ├── bookController.js
+|   |   ├── profileController.js
 │   │   └── noteController.js
+profileController.js
 │   ├── services/                   business logic, no req or res
 │   │   ├── otpService.js           make, hash, check, expire OTP
 │   │   ├── emailService.js         send OTP and reset emails
 │   │   ├── tokenService.js         sign and verify JWT, cookie options
-│   │   └── bookService.js          status and page rules, search, filter, pagination
+│   │   ├── bookService.js          status and page rules, search, filter, pagination
+|   |   └── profileService.js        stats and avatar handling
 │   ├── middleware/
 │   │   ├── auth.js                 requireLogin, redirectIfLoggedIn, loadUser
 │   │   ├── validate.js             run a Joi schema on body or query
-│   │   ├── upload.js               Multer, file type and size limit
+│   │   ├── upload.js               Multer, file type and size limit (uploadCover, uploadAvatar)
 │   │   ├── rateLimiters.js         login, verify, resend, forgot, reset
 │   │   ├── flash.js                copy flash messages from the session to views
 │   │   └── errorHandler.js         404 and error pages
 │   ├── schemas/                    Joi schemas, check request input
 │   │   ├── authSchema.js           register, login, verify, forgot, reset
 │   │   ├── bookSchema.js           book add and edit, query params for /books
+|   |   ├── profileSchema.js         username rule
 │   │   └── noteSchema.js
 │   ├── utils/
 │   │   ├── catchAsync.js
@@ -128,6 +139,7 @@ BookShelf/
 │
 ├── tests/
 │   ├── auth.test.js
+|   ├── profile.test.js
 │   ├── books.test.js
 │   └── notes.test.js
 │
@@ -262,3 +274,4 @@ Pin versions that must match each other (cloudinary and multer-storage-cloudinar
 - `books/_results.ejs` is the one template for the list, used by the full page and by dynamic search.
 - Icons are SVG files in `frontend/public/icons/`, used with `<img>` in v1.
 - Docs live in the same repo so they change with the code.
+- Profile has its own route, controller, and service. `profileService` builds the stats with MongoDB aggregation queries.

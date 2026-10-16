@@ -23,10 +23,12 @@ User 1 ──── * Book 1 ──── * Note
 
 | Field | Type | Rules |
 |---|---|---|
-| username | String | required, unique, trimmed, 3 to 30 chars |
+| username | String | required, unique, stored lowercase, 3 to 30 chars, letters, numbers, and underscore only |
 | email | String | required, unique, lowercase, trimmed, valid email |
 | password | String | required for email signup, optional for Google users, bcrypt hash, `select: false` |
 | googleId | String | optional, unique sparse |
+| avatar.url | String | optional, Cloudinary URL |
+| avatar.filename | String | optional, Cloudinary id (needed to delete the image) |
 | isVerified | Boolean | default false, true after OTP or Google login |
 | otpHash | String | optional, hashed 6 digit code, `select: false` |
 | otpExpires | Date | optional, 10 minutes after sending |
@@ -110,6 +112,11 @@ Not stored: progress percent = `currentPage / totalPages * 100`. Calculated when
 - Reset saves a new bcrypt hash, clears all OTP fields, and sets `isVerified` to true.
 - Forgot password sends no code to accounts without a password (Google-only).
 
+**Profile**
+- Replacing or removing an avatar deletes the old image on Cloudinary.
+- Profile stats are calculated by queries (count by status, sum of `currentPage`, count of notes). They are never stored, so they cannot go stale.
+- Changing the username changes nothing else, because Books and Notes point to the user by id.
+
 ## 8. Indexes
 - User: unique index on `username`, unique index on `email`.
 - User: unique sparse index on `googleId`.
@@ -118,6 +125,7 @@ Not stored: progress percent = `currentPage / totalPages * 100`. Calculated when
 - Book: index on `owner + genre` (filter by genre).
 - Book: text index on `title` and `author` (search).
 - Note: index on `book + createdAt` descending (notes of one book, newest first).
+- Note: index on `owner` (note count on the profile).
 
 ## 9. Validation layers
 1. Client: JavaScript form validation.
@@ -136,3 +144,4 @@ Not stored: progress percent = `currentPage / totalPages * 100`. Calculated when
 - Reviews and ratings are not in v1. Personal notes only.
 - Forgot password reuses the OTP system, no separate token or collection.
 - Library uses pagination (skip and limit), not infinite scroll.
+- Avatars and covers use the same upload rules and Cloudinary, in folders `bookshelf/avatars` and `bookshelf/covers`.

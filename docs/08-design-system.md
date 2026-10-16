@@ -300,8 +300,8 @@ Sizes are 16, 20, 24, or 32 only. Colors come from tokens, never raw hex.
 | Component | Spec | Variants |
 |---|---|---|
 | **Navbar/Visitor** | `surface` fill, 1 px `border` at the bottom. Wordmark: a 4 x 20 bar in `secondary` (radius 2), gap 8, `BookShelf` in `Heading/H3`. Desktop: 1440 x 64, side padding 160, right side Link `Login` (Nav) and Primary button `Register`, gap 24. Mobile: 390 x 56, side padding 16, right side `Button/Icon` with `Icon/menu`. | Device |
-| **Navbar/User** | Same frame. Desktop: Links `My Library` and `Add Book` (the active one is Nav Active), username (`Body/Small`, `text-soft`), Outline `Logout`. Mobile: same as the visitor mobile navbar. | Device. Active: My Library, Add Book, None |
-| **Menu/Mobile** | Opens under the navbar. Width Fill, `surface`, bottom 1 px `border`, rows 48 high, `Body/Medium`. Active row: `primary-light` fill, `primary` text. Visitor: Login, Register. User: My Library, Add Book, username, Outline `Logout` (Fill). Mobile only. | Type: Visitor, User |
+| **Navbar/User** | Same frame as the visitor navbar. Desktop: Links `My Library` and `Add Book` (the active one is Nav Active), then on the right a Link (Nav) holding a small Avatar and the username (gap 8, to the profile), and an Outline `Logout`. Mobile: wordmark and menu icon. | Device. Active: My Library, Add Book, Profile, None |
+| **Menu/Mobile** | Opens under the navbar. Width Fill, surface, bottom 1 px border, rows 48 high, Body/Medium. Active row: primary-light fill, primary text. Mobile only. Mobile only. | Type: Visitor, User |
 | **Footer** | `BookShelf 2026`, `Body/Small`, `text-soft`, centered, padding 24. | Default |
 | **Page Header** | Title `Heading/H1`, optional subtitle (`Body/Regular`, `text-soft`), optional Primary button. Desktop: one row, space between. Mobile: stacked, title `Heading/H1 Mobile`, button Fill. | Device |
 | **Pagination** | Items 40 x 40, radius `sm`, `Label` text. Current: `primary` fill, `text-on-primary`. Others: `primary` text, hover `primary-light`. Prev and Next: height 40, 1 px `border-strong`, `Body/Medium`, chevron 16. Disabled: `bg-muted` fill, `border` stroke, `text-soft`. Desktop: Prev, numbers with `...` gaps, Next. Mobile: Prev, `PAGE 2 OF 5`, Next. | Device. Position: First, Middle, Last |
@@ -324,6 +324,15 @@ Sizes are 16, 20, 24, or 32 only. Colors come from tokens, never raw hex.
 | **Card/Feature** | Landing feature. Icon in a 40 px circle (`primary-light`, icon `primary`), title `Heading/H3`, text `Body/Regular` (`text-soft`). Padding 24, gap 12, `surface`, 1 px `border`, radius `md`. | Default |
 | **Empty State** | Art in `secondary` tones (desktop 160, mobile 120), title `Heading/H3`, one line `Body/Regular` (`text-soft`), optional button. No books: Primary `Add a book`. No results: Outline `Clear filters`. No notes: no button. | Type: No books, No results, No notes. Device |
 | **Error State** | Status number in `Heading/Display`, message in `Heading/H2`, Primary `Back to home`. 404: `This page was not found.` 500: `Something went wrong. Try again later.` | Type: 404, 500. Device |
+
+### 7.8 Profile
+
+| Component | Spec | Variants |
+|---|---|---|
+| **Avatar** | Circle (radius `full`). Image fills the circle. Initial: first letter of the username in uppercase on a `primary-light` fill with a 1 px `border`, text `primary`. Small is 32 and uses `Body/Medium`. Large is 96 and uses `Heading/H1`. | Size: Small, Large. Type: Image, Initial |
+| **Profile/Header** | Large Avatar, username (`Heading/H1`), email (`Body/Regular`, `text-soft`), meta line (`Body/Small`, `text-soft`): `Member since Oct 2026` and `Signed in with Google`. Outline `Edit profile`. Desktop: horizontal, gap 24, button at the right. Mobile: vertical and centered, button Fill. | Device |
+| **Card/Stat** | `surface`, 1 px `border`, radius `md`, padding 16, gap 4. Number `Heading/H2`, label `Body/Small` in `text-soft`. As a link: hover shadow `md`, focus ring. Width Fill. | Type: Static, Link. State: Default, Hover, Focus |
+| **Avatar Upload** | Large Avatar preview, an Outline `Choose photo` and an Outline `Remove`, hint `JPG, PNG or WEBP, max 2 MB` (`Body/Small`, `text-soft`). Error: message in `error-dark` with `Icon/error`. Desktop: avatar at the left, buttons and hint at the right. Mobile: vertical, centered, buttons Fill. | State: Default, Error. Device |
 
 ## 8. Accessibility
 

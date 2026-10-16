@@ -19,20 +19,23 @@
 | 9 | Book details | `/books/:id` | User | US-7, US-12, US-14 |
 | 10 | Edit book | `/books/:id/edit` | User | US-8, US-11 |
 | 11 | Edit note | `/books/:id/notes/:noteId/edit` | User | US-13 |
-| 12 | 404 not found | any bad URL | Everyone | |
-| 13 | 500 error | server error | Everyone | |
+| 12 | Profile | `/profile` | User | US-27 |
+| 13 | Edit profile | `/profile/edit` | User | US-28, US-29 |
+| 14 | 404 not found | any bad URL | Everyone | |
+| 15 | 500 error | server error | Everyone | |
 
 ## 2. Shared parts (partials)
 
 - **Head:** meta, title, CSS link, viewport tag.
 - **Navbar:**
   - Visitor: logo, Login, Register.
-  - User: logo, My Library, Add Book, username, Logout (a POST form button).
+    - User: logo, My Library, Add Book, avatar and username (to the profile), Logout (a POST form button).
   - Phone: menu collapses into a hamburger.
 - **Flash messages:** success (green) and error (red), closable, shown under the navbar (US-19).
 - **Footer:** app name and year.
 - **Form error list:** field name and problem under the field, entered values kept (US-18). An error disappears as soon as the user starts typing in that field.
 - **Pagination bar:** Previous, page numbers, Next. Used on the Library page. Built as one partial so any list can reuse it later.
+- **Avatar**: image in a circle, or the first letter of the username on a tinted circle. Used in the navbar and the profile.
 
 ## 3. Wireframes
 
@@ -107,7 +110,7 @@
 +--------------------------------------------------+
 |                  Welcome back                    |
 |          +----------------------------+          |
-|          | Email     [______________] |          |
+|          | Username  [______________] |          |
 |          | Password  [______________] |          |
 |          |                            |          |
 |          | [ ] Remember me   Forgot   |          |
@@ -311,6 +314,52 @@ Last page:     [< Prev]  1  2  [3]  Next > (disabled)
 +--------------------------------------------------+
 ```
 
+### 3.8.1 Profile `/profile`
+
+```
++--------------------------------------------------+
+| BookShelf  My Library  Add Book  (S) srinivas  Logout |
++--------------------------------------------------+
+| Profile                                          |
+|                                                  |
+| +------+  srinivas                [Edit profile] |
+| |  S   |  srinivas@mail.com                      |
+| +------+  Member since Oct 2026                  |
+|           Signed in with Google                  |
+|                                                  |
+| Your library                      [View library] |
+| +--------+ +--------+ +--------+ +--------+      |
+| |   30   | |   8    | |   4    | |   18   |      |
+| | Books  | | Want   | | Reading| | Finished|     |
+| +--------+ +--------+ +--------+ +--------+      |
+| +--------+ +--------+                            |
+| | 5,240  | |   62   |                            |
+| | Pages  | | Notes  |                            |
+| +--------+ +--------+                            |
++--------------------------------------------------+
+```
+
+- Status cards link to `/books?status=...`.
+- Desktop: stat cards in a row of 4, then 2. Mobile: 2 columns.
+- Mobile header: avatar centered on top, then the details, and the Edit button fills the width.
+
+### 3.8.2 Edit profile `/profile/edit`
+
+```
++--------------------------------------------------+
+| < Back to profile                                |
+|   Edit profile                                   |
+|   (  S  )  [ Choose photo ]  [ Remove ]          |
+|            JPG, PNG or WEBP, max 2 MB            |
+|   Username  [______________]                     |
+|   Email     srinivas@mail.com (cannot be changed)|
+|   [ Save ]  [ Cancel ]                           |
++--------------------------------------------------+
+```
+
+- Choosing a photo shows a preview in the circle before saving.
+- Remove clears the preview, and saving removes the image.
+
 ### 3.9 Error pages
 
 ```
@@ -348,3 +397,4 @@ Last page:     [< Prev]  1  2  [3]  Next > (disabled)
 - Form errors: an error under a field is removed when the user types in that field. If the value is still invalid on submit, the error shows again.
 - Library: search with 400 ms delay, status and genre on change, list swapped without page reload, URL updated, late responses ignored.
 - Library: Clear button resets all fields and reloads the full list.
+- Edit profile: image type and size check (2 MB), preview in the circle, Remove button.

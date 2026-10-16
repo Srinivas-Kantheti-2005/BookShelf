@@ -25,8 +25,8 @@ As a visitor, I want to create an account, so that I get my own private library.
 As a user, I want to log in, so that I can reach my library.
 **Covers:** FR-2, FR-4, FR-28, FR-30, FR-42
 **Acceptance criteria**
-- [ ] Login form has email, password, a Remember me checkbox, and a Forgot password link.
-- [ ] Correct email and password logs in.
+- [ ] Login form has username, password, a Remember me checkbox, and a Forgot password link.
+- [ ] Correct username and password logs in.
 - [ ] Wrong credentials show one generic error (do not say which was wrong).
 - [ ] Unverified user cannot log in and is sent to the verify page.
 - [ ] JWT is set in httpOnly cookie.
@@ -42,10 +42,10 @@ As a user, I want to log out, so that nobody else can use my account on this dev
 - [ ] After logout, `/books` redirects to the landing page.
 
 ### US-4: Protected pages
-As a visitor, I should not see library pages, so that data stays private.
+As a visitor, I should not see library or profile pages, so that data stays private.
 **Covers:** FR-5
 **Acceptance criteria**
-- [ ] Visiting any `/books` URL without login redirects to the landing page `/`.
+- [ ] Visiting any `/books` or `/profile` URL without login redirects to the landing page `/`.
 - [ ] Expired or tampered token is treated as not logged in.
 
 ### US-21: Verify email with OTP
@@ -283,3 +283,40 @@ As a visitor, I want to see what BookShelf is, so that I can decide to join.
 - [ ] Page has clear Register and Login links.
 - [ ] Logged-in user opening `/` is sent to `/books`.
 - [ ] Page looks fine on phone and desktop.
+
+---
+
+## Epic 8: Profile
+
+### US-27: View profile
+As a user, I want a profile page, so that I can see my details and my reading numbers.
+**Covers:** FR-54, FR-55, FR-56, FR-59
+**Acceptance criteria**
+- [ ] Navbar shows My Library, which opens `/books`.
+- [ ] Navbar shows my avatar and username, which open `/profile`. There is no sidebar.
+- [ ] Profile shows avatar (or first letter), username, email, member since, and sign-in method.
+- [ ] Profile shows total books, books per status, pages read, and total notes.
+- [ ] Counts include only my own data. Zero counts show 0.
+- [ ] Each status card opens the library filtered by that status.
+- [ ] Profile has an Edit profile button and a link to my library.
+
+### US-28: Edit username
+As a user, I want to change my username, so that it says what I want.
+**Covers:** FR-57
+**Acceptance criteria**
+- [ ] Edit page has the username field pre-filled.
+- [ ] Username must be 3 to 30 characters: lowercase letters, numbers, and underscore.
+- [ ] A taken username shows a clear error.
+- [ ] Saving updates the username in the navbar and on the profile.
+- [ ] A Google user can change the generated username.
+- [ ] The error under a field disappears when I start typing in it.
+
+### US-29: Profile image
+As a user, I want a profile image, so that my account feels like mine.
+**Covers:** FR-58
+**Acceptance criteria**
+- [ ] Edit page has an image upload with a preview.
+- [ ] Only JPG, PNG, or WEBP up to 2 MB is accepted, otherwise a clear error shows.
+- [ ] A new image replaces the old one, and the old file is deleted on Cloudinary.
+- [ ] A Remove button deletes the image and shows the first letter again.
+- [ ] Navbar and profile show the new image.
