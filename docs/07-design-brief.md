@@ -112,7 +112,7 @@ About 35 components, all in the `Design System` page. The list and the specs are
 | Group | Components |
 |---|---|
 | Actions | Button, Button/Icon, Link |
-| Forms | Input (Text, Password, Select, Textarea, Code), Code box, Checkbox, Divider, Cover upload, Form actions |
+| Forms | Input (Text, Password, Select, Textarea, OTP), OTP box, Checkbox, Divider, Cover upload, Form actions |
 | Feedback | Alert, Modal, Status pill, Progress bar |
 | Navigation | Navbar (visitor, user), Mobile menu, Footer, Page header, Pagination |
 | Library and books | Library toolbar, Book card, Book header, Note card, Note form |
